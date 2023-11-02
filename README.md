@@ -6,12 +6,6 @@
 
 <br/>
 
-<div align="center">
-  <img src=""/>
-
-
-</div>
-
 
 <div align="center">
   <h1 style="border-bottom: none;">     My Blog   </h1>
