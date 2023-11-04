@@ -1,27 +1,63 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  it { should validate_presence_of(:author) }
-  it { should validate_presence_of(:title) }
-  it { should validate_length_of(:title).is_at_most(250) }
-  it { should validate_numericality_of(:comments_counter).only_integer.is_greater_than_or_equal_to(0) }
-  it { should validate_numericality_of(:likes_counter).only_integer.is_greater_than_or_equal_to(0) }
-  describe '#update_post_counter' do
-    it 'updates the posts_counter of the associated user' do
-      user = create(:user)
-      post = create(:post, user:)
-      expect { post.update_post_counter }.to change { user.reload.posts_counter }.by(1)
-    end
+  let(:user) { User.create(id: 7, name: 'Elo', posts_counter: 0) }
+
+  subject { Post.new(author_id: user.id, title: 'Hello', text: 'first post', comments_counter: 0, likes_counter: 0) }
+  before { subject.save }
+
+  it 'should have a title' do
+    subject.title = nil
+    expect(subject).to be_invalid
+
+    subject.title = 'Elo'
+    expect(subject).to be_valid
   end
 
-  describe '#five_recent_comments' do
-    it 'returns the five most recent comments for the post' do
-      post = create(:post) # Assuming you have a factory for Post
-      comments = create_list(:comment, 6, post:) # Assuming you have a factory for Comment
-      five_recent_comments = post.five_recent_comments
-      expect(five_recent_comments.length).to eq(5)
-      expect(five_recent_comments).to include(comments[0], comments[1], comments[2], comments[3], comments[4])
-      expect(five_recent_comments).not_to include(comments[5])
-    end
+  it 'should not be too long' do
+    subject.title = 'b' * 251
+    expect(subject).to be_invalid
+  end
+
+  it 'comments_counter should be an integer greater than or equals to 0' do
+    subject.comments_counter = nil
+    expect(subject).to be_invalid
+
+    subject.comments_counter = -1
+    expect(subject).to be_invalid
+
+    expect(subject.comments_counter).to be_integer
+
+    subject.comments_counter = 3
+    expect(subject).to be_valid
+  end
+
+  it 'likes_counter should be an integer greater than or equals to 0' do
+    subject.likes_counter = nil
+    expect(subject).to be_invalid
+
+    subject.likes_counter = -1
+    expect(subject).to be_invalid
+
+    expect(subject.likes_counter).to be_integer
+
+    subject.likes_counter = 3
+    expect(subject).to be_valid
+  end
+
+  it 'five_recent_comments should return 5 recent comments' do
+    user = User.create(id: 11, name: 'Elo', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
+                       bio: 'Teacher from Congo', posts_counter: 0)
+
+    Comment.create(id: 11, post_id: subject.id, user_id: user.id, text: 'comment 1')
+    comment2 = Comment.create(id: 12, post_id: subject.id, user_id: user.id, text: 'comment 2')
+    comment3 = Comment.create(id: 13, post_id: subject.id, user_id: user.id, text: 'comment 3')
+    comment4 = Comment.create(id: 14, post_id: subject.id, user_id: user.id, text: 'comment 4')
+    comment5 = Comment.create(id: 15, post_id: subject.id, user_id: user.id, text: 'comment 5')
+    comment6 = Comment.create(id: 16, post_id: subject.id, user_id: user.id, text: 'comment 6')
+
+    result = [comment6, comment5, comment4, comment3, comment2]
+
+    expect(subject.five_recent_comments).to eq(result)
   end
 end

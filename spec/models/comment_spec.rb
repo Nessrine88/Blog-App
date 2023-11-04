@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  describe '#update_comment_counter' do
-    it 'updates the comments_counter of the associated post' do
-      user = create(:user) # Assuming you have a factory for User
-      post = create(:post, user:) # Assuming you have a factory for Post
-      comment = create(:comment, user:, post:) # Assuming you have a factory for Comment
+  it 'should have valid user, post and update comments_counter in post object' do
+    user = User.create(id: 13, name: 'Elo', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
+                       bio: 'Computer Eng', posts_counter: 0)
+    post = Post.create(author_id: user.id, title: 'Hello', text: 'This is my first post', comments_counter: 0,
+                       likes_counter: 0)
+    comment = Comment.create(post:, user:, text: 'Hi Elo!')
 
-      expect { comment.update_comment_counter }.to change { post.reload.comments_counter }.by(1)
-    end
+    expect(comment).to be_valid
+    expect(post.comments_counter).to eq(1)
   end
 end
