@@ -9,7 +9,6 @@ class Post < ApplicationRecord
   validates :likes_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validtaes :posts_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-
   def update_post_counter
     user.update(posts_counter: user.posts.count)
   end
