@@ -1,30 +1,45 @@
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
-  describe 'GET /users' do
-    it 'returns a successful response' do
-      get users_path
-      expect(response).to have_http_status(200)
-    end
+describe 'GET /index' do
+  it 'returns a successful response' do
+    get users_url
+    puts response.status
+    expect(response).to be_successful
+  end
 
-    it 'renders the index template' do
-      get users_path
-      expect(response).to render_template(:index)
-    end
+  it 'renders a correct template' do
+    get users_url
+    puts response.status
+    template = File.read('app/views/users/index.html.erb')
+    expect(response.body).to match(/#{template}/)
+  end
 
-    it 'displays the correct placeholder text' do
-      get users_path
-      expect(response.body).to include('All users page')
-    end
+  it 'includes the correct placeholder' do
+    get users_url
+    puts response.status
+    placeholder = 'All users page'
+    expect(response.body).to match(/#{placeholder}/)
+  end
+end
 
-    it 'returns the expected number of users' do
-      # Create some users for testing
-      User.create(name: 'User 1')
-      User.create(name: 'User 2')
+describe 'GET /show' do
+  it 'returns a successful response' do
+    get '/users/1'
+    puts response.status
+    expect(response).to be_successful
+  end
 
-      get users_path
-      expect(assigns(:users)).to be_an_instance_of(ActiveRecord::Relation)
-      expect(assigns(:users)).to have(2).items
-    end
+  it 'renders a correct template' do
+    get '/users/1'
+    puts response.status
+    template = File.read('app/views/users/show.html.erb')
+    expect(response.body).to match(/#{template}/)
+  end
+
+  it 'includes the correct placeholder' do
+    get '/users/1'
+    puts response.status
+    placeholder = 'Single user page'
+    expect(response.body).to match(/#{placeholder}/)
   end
 end

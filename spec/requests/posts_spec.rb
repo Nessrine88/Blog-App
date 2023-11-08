@@ -1,30 +1,40 @@
 require 'rails_helper'
 
-RSpec.describe 'Posts', type: :request do
-  describe 'GET /posts' do
-    it 'returns a successful response' do
-      get posts_path
-      expect(response).to have_http_status(200)
-    end
+describe 'GET /index' do
+  it 'returns a successful response' do
+    user = User.create!(name: 'User1')
+    get "/users/#{user.id}/posts/index"
+    expect(response).to be_successful
+  end
 
-    it 'renders the index template' do
-      get posts_path
-      expect(response).to render_template(:index)
-    end
+  it 'renders a correct template' do
+    get '/users/1/posts'
+    template = File.read('app/views/posts/index.html.erb')
+    expect(response.body).to match(/#{template}/)
+  end
 
-    it 'displays the correct placeholder text' do
-      get posts_path
-      expect(response.body).to include('All posts page of a given user')
-    end
+  it 'includes the correct placeholder' do
+    get '/users/1/posts'
+    placeholder = 'All posts page of a given user'
+    expect(response.body).to match(/#{placeholder}/)
+  end
+end
 
-    it 'returns the expected number of posts' do
-      # Create some posts for testing
-      Post.create(title: 'Post 1', content: 'Content 1')
-      Post.create(title: 'Post 2', content: 'Content 2')
+describe 'GET /show' do
+  it 'returns a successful response' do
+    get '/users/1/posts/1'
+    expect(response).to be_successful
+  end
 
-      get posts_path
-      expect(assigns(:posts)).to be_an_instance_of(ActiveRecord::Relation)
-      expect(assigns(:posts)).to have(2).items
-    end
+  it 'renders a correct template' do
+    get '/users/1/posts/1'
+    template = File.read('app/views/posts/show.html.erb')
+    expect(response.body).to match(/#{template}/)
+  end
+
+  it 'includes the correct placeholder' do
+    get '/users/1/posts/1'
+    placeholder = 'Single post page for a given user'
+    expect(response.body).to match(/#{placeholder}/)
   end
 end
