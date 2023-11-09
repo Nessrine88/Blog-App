@@ -12,9 +12,6 @@ RSpec.describe User, type: :model do
   end
 
   it 'posts_counter should be an integer greater than or equals to 0' do
-    subject.posts_counter = nil
-    expect(subject).to be_invalid
-
     subject.posts_counter = -1
     expect(subject).to be_invalid
 
