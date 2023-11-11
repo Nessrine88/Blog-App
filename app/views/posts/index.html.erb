@@ -1,10 +1,24 @@
-<h2><%= @posts[author_id].user.name %></h2>
-  <% @posts.each do |post| %>
-    <div>
-      <h3><%= post.title %></h3>
-      <h4><%= post.text %></h4>
-    </div>
-  <% end %>
-<% else %>
-  <p>No posts found.</p>
+
+  <div>
+    <img src="<%= user.photo %>" alt="User Photo">
+    <h2><%= user.name %></h2>
+    <p>Number of posts: <%= user.posts.count %></p>
+
+    <% if user.posts.any? %>
+      <h1>Posts:</h1>
+      <% user.posts.each do |post| %>
+        <h3><%= post.title %></h3>
+        <h4><%= post.text %></h4>
+        <p>Comments: <%= post.comments.count %>, Likes: <%= post.likes.count %></p>
+        <div>
+          <% post.comments.each do |comment| %>
+            <%= comment.user.name %> : <%= comment.text %><br>
+          <% end %>
+        </div>
+        <br>
+      <% end %>
+    <% else %>
+      <p>No comments found for this user.</p>
+    <% end %>
+  </div>
 <% end %>

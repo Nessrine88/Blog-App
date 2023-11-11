@@ -1,1 +1,21 @@
-<h1>Single user page</h1>
+
+  <div>
+    <img src="<%= users.id.photo %>" alt="User Photo">
+    <h2><%= users.user_id.name %></h2>
+    <p>Number of posts: <%= user.posts.count %></p>
+    <p><%= user.bio %></p>
+
+    <% if user.posts.any? %>
+      <h1>Posts:</h1>
+      <% user.posts.each do |post| %>
+        <h3><%= post.title %></h3>
+        <h4><%= post.text %></h4>
+      <% end %>
+
+      <!-- Link to see all posts for this user -->
+      <button><%= link_to 'See all posts', user_posts_path(user) %></button>
+    <% else %>
+      <p>No posts found for this user.</p>
+    <% end %>
+  </div>
+

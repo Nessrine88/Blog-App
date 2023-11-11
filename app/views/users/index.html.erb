@@ -1,17 +1,13 @@
 <% @users.each do |user| %>
   <div>
-    <img src="<%= user.photo %> " alt="User Photo">
-    <h2><%= user.id %></h2>
+    <img src="<%= user.photo %>" alt="User Photo">
     <h2><%= user.name %></h2>
-    <h4><%= user.bio %></h4>
-    <p>Recent posts:</p>
-     
-    <ul>
-      <% user.recent_posts.each do |post| %>
-        <li><%= post.title %></li>
-      <% end %>
-    </ul>
-
-    <%= link_to('See all posts','/users/user_id/posts') %>
+    <p>Number of posts: <%= user.posts.count %></p>
+    <%= link_to "#{user.name}'s Posts", user_path(user) %>
   </div>
+   <br>
 <% end %>
+
+
+  
+
