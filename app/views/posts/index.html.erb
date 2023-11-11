@@ -1,1 +1,10 @@
-<h1>All posts page of a given user</h1>
+<h2><%= @posts[author_id].user.name %></h2>
+  <% @posts.each do |post| %>
+    <div>
+      <h3><%= post.title %></h3>
+      <h4><%= post.text %></h4>
+    </div>
+  <% end %>
+<% else %>
+  <p>No posts found.</p>
+<% end %>
