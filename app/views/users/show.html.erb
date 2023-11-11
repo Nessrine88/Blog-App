@@ -1,21 +1,17 @@
+<%= render partial: 'partials/user_card', locals: { user: @user } %>
 
-  <div>
-    <img src="<%= users.id.photo %>" alt="User Photo">
-    <h2><%= users.user_id.name %></h2>
-    <p>Number of posts: <%= user.posts.count %></p>
-    <p><%= user.bio %></p>
+<div class='bio'>
+  <h2>Bio</h2>
+  <p><%= @user.bio %></p>
+</div>
 
-    <% if user.posts.any? %>
-      <h1>Posts:</h1>
-      <% user.posts.each do |post| %>
-        <h3><%= post.title %></h3>
-        <h4><%= post.text %></h4>
-      <% end %>
-
-      <!-- Link to see all posts for this user -->
-      <button><%= link_to 'See all posts', user_posts_path(user) %></button>
-    <% else %>
-      <p>No posts found for this user.</p>
+<div class='feed'>
+  <% @user.recent_posts.each do |post| %>
+    <%= render partial: 'partials/post', locals: { post: post, short: true } %>
+  <% end %>
+  <% if @user.posts.length > 0 %>
+    <%= link_to "/users/#{@user.id}/posts" do %>
+      <button type='button'>See all posts</button>
     <% end %>
-  </div>
-
+  <% end %>
+</div>
