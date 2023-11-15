@@ -1,10 +1,16 @@
 <div class='post-ctr'>
     <%= render partial: 'partials/post', locals: { post: @post, short: false } %>
+    <%= button_to "Like", "/posts/#{@post.id}/like", remote: true %>
+    <small><%= flash[:notice] %></small>
     <% if @post.comments.length > 0 %>
       <div class='comments'>
         <% @post.comments.each do |comment| %>
           <%= render partial: 'partials/comment', locals: { comment: comment } %>
         <% end %>
       </div>
+    <% end %>
+    <%= form_with model: Comment.new, url: "/posts/#{@post.id}/comment" do |form| %>
+      <%= form.text_field :text, placeholder: 'Make a comment' %>
+      <%= form.submit "Submit" %>
     <% end %>
   </div>

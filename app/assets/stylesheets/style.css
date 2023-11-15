@@ -27,14 +27,19 @@ body {
   border: solid black;
   flex: 6 6;
   padding: 2rem;
+  position: relative;
+  height: 6rem;
+}
+
+.user-info p {
+  position: absolute;
+  right: 1rem;
 }
 
 .user-card img {
   object-fit: cover;
   border: solid black;
-  width: 10rem;
-  aspect-ratio: 1 / 1;
-  flex: 1 1;
+  height: 6rem;
 }
 
 .user-card p {
@@ -53,6 +58,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  position: relative;
 }
 
 .post-body {
@@ -64,12 +70,18 @@ body {
   gap: 1rem;
 }
 
-.post-header {
-  align-self: flex-start;
+.feed button {
+  place-self: center;
+  position: absolute;
+  left: 43%;
+  right: 43%;
+  background-color: transparent;
+  border: solid black;
+  margin-bottom: 4rem;
 }
 
-.post-text {
-  align-self: center;
+.post-header {
+  align-self: flex-start;
 }
 
 .post-counters {
@@ -91,5 +103,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 80%;
+}
+
+.bio {
+  padding: 1rem;
+  border: solid black;
   width: 80%;
 }
