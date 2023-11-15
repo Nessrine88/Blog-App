@@ -92,6 +92,10 @@ body {
   border: solid black;
 }
 
+input {
+  width: 100%;
+}
+
 .comment {
   display: flex;
   gap: 1rem;
@@ -110,4 +114,15 @@ body {
   padding: 1rem;
   border: solid black;
   width: 80%;
+}
+
+.submit {
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+.comment-text input {
+  padding: 1rem 0 10rem 1rem;
+  font-style: italic;
+  border-radius: 1rem;
 }
