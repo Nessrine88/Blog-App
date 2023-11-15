@@ -1,0 +1,7 @@
+<%= form_with scope: :post, url: '/posts', method: :post do |form| %>
+  <%= form.label :title, "Title" %>
+  <%= form.text_field :title %>
+  <%= form.label :text, "Text" %>
+  <%= form.text_field :text %>
+  <%= form.submit "Create" %>
+<% end %>

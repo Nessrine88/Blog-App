@@ -1,1 +1,17 @@
-<h1>All posts page of a given user</h1>
+<%= render partial: 'partials/user_card', locals: { user: @user } %>
+
+<% @posts.each do |post| %>
+  <div class='post-ctr'>
+    <%= render partial: 'partials/post', locals: { post: post, short: true } %>
+    <% if post.comments.length > 0 %>
+      <div class='comments'>
+        <% post.five_recent_comments.each do |comment| %>
+          <%= render partial: 'partials/comment', locals: { comment: comment } %>
+        <% end %>
+      </div>
+    <% end %>
+    <%= link_to "/users/#{@user.id}/posts/#{post.id}" do %>
+      <button type='button'>See this post</button>
+    <% end %>
+  </div>
+<% end %>

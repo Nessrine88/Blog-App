@@ -1,1 +1,3 @@
-<h1>All users page</h1>
+<% @users.each do |user| %>
+  <%= render partial: 'partials/user_card', locals: { user: user } %>
+<% end %>
