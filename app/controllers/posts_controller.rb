@@ -14,8 +14,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(author: current_user, title: params[:post][:title], text: params[:post][:text])
-    puts "Name: #{post.author.name} Title: #{post.title} Text: #{post.text}"
+    post = Post.new(author_id: current_user.id, title: params[:post][:title], text: params[:post][:text])
+    puts "Name: #{post.user.name} Title: #{post.title} Text: #{post.text}"
     respond_to do |format|
       format.html do
         if post.save
