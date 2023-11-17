@@ -9,8 +9,8 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new(author: current_user)
-    puts @post.author.name
+    @post = Post.new(user: current_user)
+    puts @post.user.name
   end
 
   def create

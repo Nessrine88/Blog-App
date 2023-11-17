@@ -116,3 +116,7 @@ body {
   width: 80%;
   background-color: #daad86;
 }
+
+.new_btn {
+  justify-content: flex-end;
+}
