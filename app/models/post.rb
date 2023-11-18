@@ -3,8 +3,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   validates :title, presence: true, length: { maximum: 250 }
-  # validates :comments_counter, numericality: { only_integer: true }
-  # validates :likes_counter, numericality: { only_integer: true }
+  validates :comments_counter, numericality: { only_integer: true }
+  validates :likes_counter, numericality: { only_integer: true }
 
   after_save :update_post_counters
 

@@ -3,10 +3,10 @@
     <h2><%= "#{post.title} by #{post.user.name}" %></h2>
   </div>
   <p class='post-text'>
-    <% if short && post.body.split(' ').length > 15 %>
-      <%= post.body.split(' ').slice(0,15).join(' ') %>...
+    <% if short && post.text.split(' ').length > 15 %>
+      <%= post.text.split(' ').slice(0,15).join(' ') %>...
     <% else %>
-      <%= post.body %>
+      <%= post.text %>
     <% end %>
   </p>
   <p class='post-counters'>

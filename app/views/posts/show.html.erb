@@ -1,20 +1,16 @@
 <div class='post-ctr'>
-    <%= render partial: 'partials/post', locals: { post: @post, short: false } %>
-    <%= button_to "Like", "/posts/#{@post.id}/like", remote: true %>
-    <small><%= flash[:notice] %></small>
-    <% if @post.comments.length > 0 %>
-      <div class='comments'>
-        <% @post.comments.each do |comment| %>
-          <%= render partial: 'partials/comment', locals: { comment: comment } %>
-        <% end %>
-      </div>
-    <% end %>
-    <%= form_with model: Comment.new, url: "/posts/#{@post.id}/comment" do |form| %>
-     <div class="comment-text">
-      <%= form.text_field :text, placeholder: 'Make a comment' %>
-      </div>
-      <div class="submit">
-      <%= form.submit "Submit" %>
-      </div>
-    <% end %>
-  </div>
+  <%= render partial: 'partials/post', locals: { post: @post, short: false } %>
+  <%= button_to "Like", post_likes_path(@post), remote: true %>
+  <small><%= flash[:notice] %></small>
+  <% if @post.comments.length > 0 %>
+    <div class='comments'>
+      <% @post.comments.each do |comment| %>
+        <%= render partial: 'partials/comment', locals: { comment: comment } %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= form_with model: Comment.new, url: post_comments_path(@post) do |form| %>
+    <%= form.text_field :text, placeholder: 'Make a comment' %>
+    <%= form.submit "Submit" %>
+  <% end %>
+</div>

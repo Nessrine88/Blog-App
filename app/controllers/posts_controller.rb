@@ -9,13 +9,13 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new(author: current_user)
-    puts @post.author.name
+    @post = Post.new
+    puts @post.user.name
   end
 
   def create
-    post = Post.new(author: current_user, title: params[:post][:title], text: params[:post][:text])
-    puts "Name: #{post.author.name} Title: #{post.title} Text: #{post.text}"
+    post = Post.new
+    puts "Name: #{post.user.name} Title: #{post.title} Text: #{post.text}"
     respond_to do |format|
       format.html do
         if post.save
@@ -29,24 +29,5 @@ class PostsController < ApplicationController
         end
       end
     end
-  end
-
-  def like
-    @post = Post.find(params[:id])
-    like = Like.new(user: current_user, post: @post)
-    if @post.likes.find_by(user_id: current_user.id)
-      flash[:notice] = 'You already liked this post'
-    elsif like.save
-      flash[:success] = 'You like this post'
-    end
-    render :show
-  end
-
-  def comment
-    @post = Post.find(params[:id])
-    comment = Comment.new(user: current_user, post: @post, text: params[:comment][:text])
-    return unless comment.save
-
-    redirect_to "/users/#{current_user.id}/posts/#{@post.id}"
   end
 end

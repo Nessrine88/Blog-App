@@ -6,13 +6,15 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-decoration: none;
 }
 
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 2rem;
+  padding: 2rem 0 2rem 0;
   gap: 2rem;
 }
 
@@ -24,11 +26,12 @@ body {
 }
 
 .user-info {
-  border: solid black;
+  border: 1px black solid;
   flex: 6 6;
   padding: 2rem;
   position: relative;
   height: 6rem;
+  border-radius: 5px;
 }
 
 .user-info p {
@@ -38,7 +41,7 @@ body {
 
 .user-card img {
   object-fit: cover;
-  border: solid black;
+  border: 1px black solid;
   height: 6rem;
 }
 
@@ -66,8 +69,9 @@ body {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  border: solid black;
+  border: none;
   gap: 1rem;
+  background-color: #fbeec1;
 }
 
 .feed button {
@@ -75,9 +79,10 @@ body {
   position: absolute;
   left: 43%;
   right: 43%;
-  background-color: transparent;
-  border: solid black;
+  border: none;
   margin-bottom: 4rem;
+  background-color: #daad86;
+  padding: 0.5rem;
 }
 
 .post-header {
@@ -89,11 +94,7 @@ body {
 }
 
 .comments {
-  border: solid black;
-}
-
-input {
-  width: 100%;
+  border: 1px solid black;
 }
 
 .comment {
@@ -112,17 +113,6 @@ input {
 
 .bio {
   padding: 1rem;
-  border: solid black;
   width: 80%;
-}
-
-.submit {
-  width: fit-content;
-  margin-top: 1rem;
-}
-
-.comment-text input {
-  padding: 1rem 0 10rem 1rem;
-  font-style: italic;
-  border-radius: 1rem;
+  background-color: #daad86;
 }
