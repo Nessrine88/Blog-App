@@ -39,7 +39,6 @@ describe 'posts index', type: :system do
     expect(page).to have_content(post1.title)
   end
 
-
   it 'can see the post\'s body' do
     visit path
     expect(page).to have_content(post1.text)
@@ -67,4 +66,3 @@ describe 'posts index', type: :system do
     expect(page).to have_current_path("/users/#{user.id}/posts/#{post1.id}")
   end
 end
-

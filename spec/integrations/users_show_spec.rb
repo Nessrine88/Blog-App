@@ -18,7 +18,6 @@ describe 'users show', type: :system do
     expect(page).to have_css('img.user-photo')
   end
 
-
   it 'can see the number of posts of the user' do
     visit "/users/#{user.id}"
 
@@ -40,7 +39,6 @@ describe 'users show', type: :system do
     expect(page).to have_content('See all posts')
   end
 
-
   it 'clicking an user redirects you to the user show page' do
     visit "/users/#{user.id}/posts"
 
@@ -48,4 +46,3 @@ describe 'users show', type: :system do
     expect(page).to have_current_path("/users/#{post1.author_id}/posts/#{post1.id}")
   end
 end
-
