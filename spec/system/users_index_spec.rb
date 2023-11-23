@@ -1,3 +1,4 @@
+# rubocop:disable Layout/EndOfLine
 require 'rails_helper'
 
 describe 'user index', type: :system do
@@ -26,3 +27,4 @@ describe 'user index', type: :system do
     expect(current_path).to eq("/users/#{user1.id}")
   end
 end
+# rubocop:disable Layout/EndOfLine
