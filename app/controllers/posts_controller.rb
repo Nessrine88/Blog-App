@@ -1,33 +1,29 @@
 class PostsController < ApplicationController
   def index
-    @user = User.find(params[:id])
+    @user = User.includes(posts: :comments).find(params[:id])
     @posts = @user.posts
   end
 
   def show
-    @post = User.find(params[:id]).posts.find(params[:post_id])
+    @post = Post.includes(:comments).find(params[:post_id])
   end
 
   def new
     @post = Post.new
-    puts @post.user.name
   end
 
   def create
-    post = Post.new
-    puts "Name: #{post.user.name} Title: #{post.title} Text: #{post.text}"
-    respond_to do |format|
-      format.html do
-        if post.save
-          puts 'Success'
-          flash[:success] = 'Post created successfully'
-          redirect_to "/users/#{current_user.id}/posts"
-        else
-          puts 'error', post.errors.full_messages
-          flash.now[:error] = 'Error: Post could not be created'
-          render :new
-        end
-      end
+    @post = current_user.posts.build(post_params)
+    if @post.save
+      redirect_to post_path(@user, @post)
+    else
+      render 'new'
     end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :description)
   end
 end

@@ -6,7 +6,7 @@
 </div>
 
 <div class='feed'>
-  <% @user.recent_posts.each do |post| %>
+  <% @user.three_recent_posts.each do |post| %>
     <%= render partial: 'partials/post', locals: { post: post, short: true } %>
   <% end %>
   <% if @user.posts.length > 0 %>

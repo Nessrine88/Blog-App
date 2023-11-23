@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 ruby '3.2.2'
 
+gem 'rubocop', '>= 1.0', '< 2.0'
+
+gem 'figaro'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.1'
 
@@ -26,9 +30,6 @@ gem 'stimulus-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
-# Use Rubocop linters
-gem 'rubocop', '>= 1.0', '< 2.0'
-
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -50,6 +51,12 @@ gem 'bootsnap', require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
+  gem 'rspec-rails'
+
+  # Capybara, the library that allows us to interact with the browser using Ruby
+  gem 'capybara'
+
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -61,11 +68,4 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-end
-
-group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'capybara'
-  gem 'rspec-rails'
-  gem 'selenium-webdriver'
 end
