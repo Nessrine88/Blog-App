@@ -26,3 +26,4 @@ describe 'user index', type: :system do
     expect(current_path).to eq("/users/#{user1.id}")
   end
 end
+

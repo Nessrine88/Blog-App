@@ -48,3 +48,4 @@ describe 'users show', type: :system do
     expect(page).to have_current_path("/users/#{post1.author_id}/posts/#{post1.id}")
   end
 end
+

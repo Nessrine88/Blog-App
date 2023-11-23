@@ -67,3 +67,4 @@ describe 'posts index', type: :system do
     expect(page).to have_current_path("/users/#{user.id}/posts/#{post1.id}")
   end
 end
+

@@ -44,3 +44,4 @@ describe 'posts show', type: :system do
     expect(page).to have_content(comment1.user.name)
   end
 end
+
