@@ -5,8 +5,9 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.includes(:comments).find(params[:post_id])
+    @post = Post.includes(:comments).find(params[:id])
   end
+  
 
   def new
     @post = Post.new
@@ -19,6 +20,12 @@ class PostsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def destroy
+    authorize! :delete, @post
+    @post.destroy
+    redirect_to posts_url, notice: 'Post was successfully deleted.'
   end
 
   private
