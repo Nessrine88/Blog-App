@@ -8,12 +8,11 @@ describe 'user index', type: :system do
   end
 
   it 'can see the profile picture of the user' do
-    visit path
-
-    photo = find(:css, '.user-photo')
-
-    expect(photo).to_not be_nil
+    visit users_path
+    user_photo = find("img[src*='#{user1.photo}']")
+    expect(user_photo).to be_visible
   end
+
 
   it 'displays the number of posts each user has written' do
     visit users_path

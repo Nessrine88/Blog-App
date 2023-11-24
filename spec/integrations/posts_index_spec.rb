@@ -14,10 +14,10 @@ describe 'posts index', type: :system do
     like1.save
   end
 
-  it 'can see the profile picture of the user' do
-    visit "/users/#{user.id}"
-    photo = find(:css, '.user-photo')
-    expect(photo).to_not be_nil
+  it 'displays the profile picture for each user' do
+    visit path
+    user_photo = find("img[src*='#{user.photo}']")
+    expect(user_photo).to be_visible
   end
 
   it 'can see the username' do
@@ -30,9 +30,9 @@ describe 'posts index', type: :system do
 
   it 'can see number of posts of the user' do
     visit path
-    puts user.posts_counter
-    expect(page).to have_content("Number of posts: #{user.posts_counter}")
+    expect(page).to have_content("Number of posts: #{user.posts.count}")
   end
+
 
   it 'can see a post\'s title' do
     visit path

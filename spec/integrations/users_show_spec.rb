@@ -1,20 +1,27 @@
 require 'rails_helper'
 
 describe 'users show', type: :system do
-  let(:user) { User.create(name: 'Tom', bio: 'Teacher from mexico', photo: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') }
-  let(:post1) { Post.create(user:, title: 'Post 1', text: 'Post content') }
-  let(:comment1) { Comment.create(user:, post: post1, text: 'My_comment') }
-  let(:like1) { Like.create(user:, post: post1) }
+  let(:user) { User.new(name: 'Diego', bio: 'Hi I\'m a student from Mexico', photo: 'https://as1.ftcdn.net/v2/jpg/00/64/30/06/1000_F_64300613_1TYCvyzq09Go7oEVXkDQypofuaJEwKTo.jpg') }
+  let(:post1) { Post.new(user:, title: 'Post 1', text: 'Post content') }
+  let(:post2) { Post.new(user:, title: 'Post 2', text: 'Post content') }
+  let(:post3) { Post.new(user:, title: 'Post 3', text: 'Post content') }
+  let(:comment1) { Comment.new(user:, post: post1, text: 'Comment 1') }
+  let(:comment2) { Comment.new(user:, post: post2, text: 'Comment 2') }
+  let(:comment3) { Comment.new(user:, post: post3, text: 'Comment 3') }
+  let!(:like1) { Like.create(user:, post: post1) }
 
   before :each do
     user.save
     post1.save
+    post2.save
+    post3.save
     comment1.save
-    like1.save
+    comment2.save
+    comment3.save
   end
 
   it 'displays the profile picture for each user' do
-    visit users_path
+    visit users_path(user)
     expect(page).to have_css('img.user-photo')
   end
 
@@ -29,9 +36,12 @@ describe 'users show', type: :system do
     expect(page).to have_content(user.bio)
   end
 
-  it 'can see the user\'s  most recent posts' do
-    visit "/users/#{user.id}/posts"
-    expect(page).to have_content(post1.text)
+  it 'displays the user\'s 3 most recent posts' do
+    visit "/users/#{user.id}"
+    expect(page).to have_content(post2.text)
+    expect(page).to have_content(post3.text)
+    expect(page).to have_content(post4.text)
+    expect(page).not_to have_content(post1.text)
   end
 
   it 'can see a button to see all posts' do
@@ -40,9 +50,8 @@ describe 'users show', type: :system do
   end
 
   it 'clicking an user redirects you to the user show page' do
-    visit "/users/#{user.id}/posts"
-
-    click_link 'See this post'
-    expect(page).to have_current_path("/users/#{post1.author_id}/posts/#{post1.id}")
+    visit users_path
+    click_link user.name
+    expect(page).to have_current_path("/users/#{user.id}")
   end
 end
