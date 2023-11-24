@@ -13,7 +13,6 @@ describe 'user index', type: :system do
     expect(user_photo).to be_visible
   end
 
-
   it 'displays the number of posts each user has written' do
     visit users_path
     expect(page).to have_content("Number of posts: #{user1.posts.count}")

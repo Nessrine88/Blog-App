@@ -5,6 +5,7 @@ describe 'users show', type: :system do
   let(:post1) { Post.new(user:, title: 'Post 1', text: 'Post content') }
   let(:post2) { Post.new(user:, title: 'Post 2', text: 'Post content') }
   let(:post3) { Post.new(user:, title: 'Post 3', text: 'Post content') }
+  let(:post4) { Post.new(user:, title: 'Post 4', text: 'Post content') }
   let(:comment1) { Comment.new(user:, post: post1, text: 'Comment 1') }
   let(:comment2) { Comment.new(user:, post: post2, text: 'Comment 2') }
   let(:comment3) { Comment.new(user:, post: post3, text: 'Comment 3') }
@@ -15,6 +16,7 @@ describe 'users show', type: :system do
     post1.save
     post2.save
     post3.save
+    post4.save
     comment1.save
     comment2.save
     comment3.save
@@ -41,7 +43,6 @@ describe 'users show', type: :system do
     expect(page).to have_content(post2.text)
     expect(page).to have_content(post3.text)
     expect(page).to have_content(post4.text)
-    expect(page).not_to have_content(post1.text)
   end
 
   it 'can see a button to see all posts' do

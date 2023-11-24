@@ -33,7 +33,6 @@ describe 'posts index', type: :system do
     expect(page).to have_content("Number of posts: #{user.posts.count}")
   end
 
-
   it 'can see a post\'s title' do
     visit path
     expect(page).to have_content(post1.title)
@@ -64,5 +63,10 @@ describe 'posts index', type: :system do
     visit path
     click_link 'See this post'
     expect(page).to have_current_path("/users/#{user.id}/posts/#{post1.id}")
+  end
+
+  it 'displays a button for pagination' do
+    visit path
+    expect(page).to have_selector('.pagination')
   end
 end
