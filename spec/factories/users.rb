@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     name { Faker::Name.name }
-    photo { Faker::Internet.url(host: 'example.com') }
+    photo { Faker::Avatar.image }
     bio { Faker::Lorem.sentence }
 
     transient do
@@ -9,7 +9,7 @@ FactoryBot.define do
     end
 
     after(:create) do |user, evaluator|
-      create_list(:post, evaluator.posts_count, user: user)
+      create_list(:post, evaluator.posts_count, user:)
     end
   end
 end
