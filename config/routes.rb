@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # Other routes...
 
   get '/', to: 'users#index'
