@@ -11,7 +11,7 @@
   <% end %>
   <% if @user.posts.length > 0 %>
     <%= link_to "/users/#{@user.id}/posts" do %>
-      <button type='button'>See all posts</button>
+      <button type='button' class='see_all'>See all posts</button>
     <% end %>
   <% end %>
 </div>

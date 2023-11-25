@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'posts index', type: :system do
   let(:user) { User.create(name: 'Tom', bio: 'Teacher from mexico', photo: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') }
-  let(:post1) { Post.create(user: user, title: 'Post 1', text: 'Post content') }
-  let(:comment1) { Comment.create(user: user, post: post1, text: 'My_comment') }
-  let(:like1) { Like.create(user: user, post: post1) }
+  let(:post1) { Post.create(user:, title: 'Post 1', text: 'Post content') }
+  let(:comment1) { Comment.create(user:, post: post1, text: 'My_comment') }
+  let(:like1) { Like.create(user:, post: post1) }
   let(:path) { "/users/#{user.id}/posts" }
 
   before :each do
@@ -14,12 +14,10 @@ describe 'posts index', type: :system do
     like1.save
   end
 
-  it 'can see the profile picture of the user' do
+  it 'displays the profile picture for each user' do
     visit path
-
-    photo = find(:css, '.user-photo')
-
-    expect(photo).to_not be_nil
+    user_photo = find("img[src*='#{user.photo}']")
+    expect(user_photo).to be_visible
   end
 
   it 'can see the username' do
@@ -32,24 +30,22 @@ describe 'posts index', type: :system do
 
   it 'can see number of posts of the user' do
     visit path
-    puts user.posts_counter
-    expect(page).to have_content("Number of posts: #{user.posts_counter}")
+    expect(page).to have_content("Number of posts: #{user.posts.count}")
   end
 
   it 'can see a post\'s title' do
     visit path
     expect(page).to have_content(post1.title)
   end
-  
 
   it 'can see the post\'s body' do
     visit path
-      expect(page).to have_content(post1.text)
+    expect(page).to have_content(post1.text)
   end
 
   it 'clicking an user redirects you to the user show page' do
     visit "/users/#{user.id}/posts"
-      first(:link, 'See this post').click
+    first(:link, 'See this post').click
     expect(page).to have_current_path("/users/#{user.id}/posts/#{Post.first.id}")
   end
 
@@ -68,5 +64,9 @@ describe 'posts index', type: :system do
     click_link 'See this post'
     expect(page).to have_current_path("/users/#{user.id}/posts/#{post1.id}")
   end
-  
+
+  it 'displays a button for pagination' do
+    visit path
+    expect(page).to have_selector('.pagination')
+  end
 end
