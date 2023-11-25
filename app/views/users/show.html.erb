@@ -6,12 +6,12 @@
 </div>
 
 <div class='feed'>
-  <% @user.recent_posts.each do |post| %>
+  <% @user.three_recent_posts.each do |post| %>
     <%= render partial: 'partials/post', locals: { post: post, short: true } %>
   <% end %>
   <% if @user.posts.length > 0 %>
     <%= link_to "/users/#{@user.id}/posts" do %>
-      <button type='button'>See all posts</button>
+      <button type='button' class='see_all'>See all posts</button>
     <% end %>
   <% end %>
 </div>

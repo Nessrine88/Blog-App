@@ -8,4 +8,5 @@ class CreatePosts < ActiveRecord::Migration[7.1]
       t.integer :likes_counter, default: 0
       t.timestamps
     end
+  end
 end

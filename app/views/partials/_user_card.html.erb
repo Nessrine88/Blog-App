@@ -1,6 +1,6 @@
 <%= link_to "/users/#{user.id}", class: 'user-nav-link' do %>
     <div class='user-card'>
-       <img class='user-photo' src='<%= user.photo %>' alt='profile picture' />
+       <%= image_tag 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', class: 'user-photo', alt: 'profile picture' %>
         <div class="user-info">
             <h2><%= user.name %></h2>
             <p>Number of posts: <%= user.posts_counter %></p>

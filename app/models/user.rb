@@ -15,7 +15,7 @@ class User < ApplicationRecord
     self.posts_counter = [posts.count, 0].max
   end
 
-  def recent_posts
+  def three_recent_posts
     posts.order(created_at: :desc).limit(3)
   end
 end
