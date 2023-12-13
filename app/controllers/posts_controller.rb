@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.includes(:comments).find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def new
@@ -13,12 +13,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
-      redirect_to post_path(@user, @post)
-    else
-      render 'new'
-    end
+    @post = Post.new(post_params)
+    return unless @post.save
+
+    redirect_to post_path
+    render 'new'
   end
 
   private
