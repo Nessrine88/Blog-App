@@ -1,17 +1,18 @@
-version: 1
+databases:
+  - name: my-blog
+    databaseName: my-blog
+    user: my-blog
+
 services:
-  - name: web
-    type: web
-    env: ruby
-    buildCommand: bundle exec rails s
+  - type: web
+    name: my-blog
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
-      - key: RAILS_MASTER_KEY
-        sync: false
       - key: DATABASE_URL
         fromDatabase:
-          name: postgres
+          name: my-blog
           property: connectionString
-  - name: redis
-    type: redis
-    plan: free
-    maxmemoryPolicy: noeviction
+      - key: RAILS_MASTER_KEY
+        sync: false
