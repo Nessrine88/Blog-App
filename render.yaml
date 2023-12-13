@@ -1,20 +1,17 @@
-database:
-  - name: postgres
-    ipAllowList: []
+version: 1
 services:
-  - type: web
-    name: rails
+  - name: web
+    type: web
     env: ruby
     buildCommand: bundle exec rails s
-    enVars:
+    envVars:
       - key: RAILS_MASTER_KEY
         sync: false
       - key: DATABASE_URL
         fromDatabase:
           name: postgres
           property: connectionString
-  - type: redis
-    name: redis
-    ipAllowList: []
+  - name: redis
+    type: redis
     plan: free
     maxmemoryPolicy: noeviction
